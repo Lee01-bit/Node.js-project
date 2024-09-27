@@ -1,0 +1,17 @@
+[
+  {
+    "productName": "apples",
+    "price": "10.00",
+    "id": 1
+  },
+  {
+    "productName": "apples",
+    "price": "10.00",
+    "id": 2
+  },
+  {
+    "productName": "apples",
+    "price": "10.00",
+    "id": 3
+  }
+]
