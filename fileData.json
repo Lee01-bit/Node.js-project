@@ -1,17 +1,57 @@
 [
   {
-    "productName": "apples",
-    "price": "10.00",
+    "productName": "mango",
+    "price": "5.00",
     "id": 1
   },
   {
-    "productName": "apples",
-    "price": "10.00",
+    "productName": "mango",
+    "price": "5.00",
     "id": 2
   },
   {
-    "productName": "apples",
-    "price": "10.00",
+    "productName": "mango",
+    "price": "5.00",
     "id": 3
+  },
+  {
+    "productName": "strawberry",
+    "price": "15.00",
+    "id": 4
+  },
+  {
+    "productName": "mango's",
+    "price": "15.00",
+    "id": 5
+  },
+  {
+    "productName": "strawberry",
+    "price": "15.00",
+    "id": 6
+  },
+  {
+    "productName": "berry",
+    "price": "22.00",
+    "id": 7
+  },
+  {
+    "productName": "berry",
+    "price": "22.00",
+    "id": 8
+  },
+  {
+    "productName": "berry",
+    "price": "22.00",
+    "id": 9
+  },
+  {
+    "productName": "berry",
+    "price": "22.00",
+    "id": 10
+  },
+  {
+    "productName": "berry",
+    "price": "22.00",
+    "id": 11
   }
 ]
