@@ -22,12 +22,23 @@ const server = http.createServer((req, res) =>{
     const method = req.method;
 
 // to GET information 
-    if (urlParsed.pathname === "/products"  && method === "GET"){
-        const data = readItems();
-        // res.statusCode = 200
-        res.writeHead(200, {'Content-Type': 'application/json' })
-        res.end(JSON.stringify(data))
-       
+        if (urlParsed.pathname.startsWith('/products/') && method === 'GET') {
+            const itemId = parseInt(urlParsed.pathname.split('/')[2]);
+            const data = readItems();
+            // Find the item by ID
+            const item = data.find(item => parseInt(item.id) === itemId);
+    
+        
+            if (data) {
+                // Item found, send a 200 response with the item
+                res.writeHead(200, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify(item));
+            } else {
+                // Item not found, send a 404 response
+                res.writeHead(404, { 'Content-Type': 'text/plain' });
+                res.end('Product not found');
+            }
+        
 
     } else if (urlParsed.pathname === "/products" && method === "POST"){
         // POST : Adding new Items to the list 
@@ -48,59 +59,51 @@ const server = http.createServer((req, res) =>{
             console.log("New Item Has been Added!");
             
        });
-     } else if  (urlParsed.pathname.startsWith("/products/") && method === "PUT") {
-         // Extracting the ID from the URL path
-        const itemId = urlParsed.pathname.split('/')[2];
-         console.log(itemId);
-        
-     let body = "";
-    
-         req.on("data", chunk => {
-             body += chunk.toString();
+     } else if  (urlParsed.pathname.startsWith('/products/') && method === 'PUT') {
+        // PUT /items/:id: Update an existing item
+        const itemId = parseInt(urlParsed.pathname.split('/')[2]);
+        let body = '';
+
+        req.on('data', chunk => {
+            body += chunk.toString();
         });
-    
-         req.on("end", () => {
-            try {
-                const updatedItem = JSON.parse(body);
-             const data = readItems();
-                
-                // Find the index of the item with the matching ID
-                 const index = data.findIndex(item => parseInt(item.id) === itemId); // Assuming ID is a string
-    
-                if (index === -1) {
-                    res.writeHead(404, { "Content-Type": "application/json" });
-                    res.end(JSON.stringify({ error: "Item Not Found" }));
-                     return;
-               }
-            
-                 // Update the item in the array
-               data[index] = { ...data[index], ...updatedItem };
-    
-    
-                res.writeHead(200, { "Content-Type": "application/json" });
-                 res.end(JSON.stringify(data[index])); // Return the updated item
-            } catch (err) {
-                 res.writeHead(400, { "Content-Type": "application/json" });
-                 res.end(JSON.stringify({ error: "Invalid JSON" }));
-             }
-       });
-     }
-    
 
+        req.on('end', () => {
+            const updatedData = JSON.parse(body);
+            const data = readItems();
+            const index = data.findIndex(item => parseInt(item.id) === itemId);
 
+            if (index === -1) {
+                res.writeHead(404);
+                res.end('Item not found');
+                return;
+            }
 
+            data[index] = { ...data[index], ...updatedData };
+            writeItems(data);
+            res.writeHead(200, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify(data[index]));
+        });
+        // This part will be to delete a certain product from the list using the id
+     }else if (urlParsed.pathname.startsWith("/products/") && method === "DELETE"){
+        const itemId = parseInt(urlParsed.pathname.split('/')[2]);
+        const data = readItems();
+        const index = data.findIndex(item => parseInt(item.id) === itemId);
 
+        if (index === -1) {
+            res.writeHead(404);
+            res.end('Item not found');
+            return;
+        }
 
+        data.splice(index, 1);
+        writeItems(data);
+        res.writeHead(204);
+        res.end("Item has been deleted");
+        console.log("Item has been Deleted!");
 
-
-
-
-
-
-
-
-
- else {
+        
+    }else {
         // 404 Not Found
         res.writeHead(404);
         res.end('Content Not Found');

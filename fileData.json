@@ -2,11 +2,6 @@
   {
     "productName": "mango",
     "price": "5.00",
-    "id": 1
-  },
-  {
-    "productName": "mango",
-    "price": "5.00",
     "id": 2
   },
   {
@@ -50,8 +45,8 @@
     "id": 10
   },
   {
-    "productName": "berry",
-    "price": "22.00",
-    "id": 11
+    "name": "berry",
+    "price": "10.00",
+    "id": 12
   }
 ]
