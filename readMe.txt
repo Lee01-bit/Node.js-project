@@ -11,7 +11,7 @@ splice - This is used to change contents in an Array by either removing it
 
 There are 4 methods GET, POST, PUT, DELETE
 
-GET method 
+GET  
 - The get method will be retreiving data from my JSON file and converting it to be readable
 - It can also search for a specific product using the ID
 - If it does not find a product , you will get a error code
