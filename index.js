@@ -25,16 +25,15 @@ const server = http.createServer((req, res) =>{
         if (urlParsed.pathname.startsWith('/products/') && method === 'GET') {
             const itemId = parseInt(urlParsed.pathname.split('/')[2]);
             const data = readItems();
-            // Find the item by ID
+            // find the item by the specific ID
             const item = data.find(item => parseInt(item.id) === itemId);
     
-        
+        //If data is found display it and post a 200 code for it is working
             if (data) {
-                // Item found, send a 200 response with the item
                 res.writeHead(200, { 'Content-Type': 'application/json' });
                 res.end(JSON.stringify(item));
+        //If it does not find the item show a 404 error
             } else {
-                // Item not found, send a 404 response
                 res.writeHead(404, { 'Content-Type': 'text/plain' });
                 res.end('Product not found');
             }
@@ -51,7 +50,7 @@ const server = http.createServer((req, res) =>{
         req.on("end", () =>{
             const itemNew = JSON.parse(body);
             const data = readItems();
-            itemNew.id = data.length ? data[data.length - 1].id + 1:1
+            itemNew.id = data.length ? data[data.length - 1].id + 1:1 // Adds a ID to each item that gets added into my ARRAY
             data.push(itemNew);
             writeItems(data);
             res.writeHead(200, {'Content-Type': 'application/json' });
@@ -60,7 +59,7 @@ const server = http.createServer((req, res) =>{
             
        });
      } else if  (urlParsed.pathname.startsWith('/products/') && method === 'PUT') {
-        // PUT /items/:id: Update an existing item
+        //PUT - update certain things in your array using the ID 
         const itemId = parseInt(urlParsed.pathname.split('/')[2]);
         let body = '';
 
@@ -104,7 +103,7 @@ const server = http.createServer((req, res) =>{
 
         
     }else {
-        // 404 Not Found
+        // Error 404 if nothing is found
         res.writeHead(404);
         res.end('Content Not Found');
     }
