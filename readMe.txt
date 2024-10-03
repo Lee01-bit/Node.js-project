@@ -1,9 +1,8 @@
 Node.js ReadMe
-The first thing i did was to create 2 functions that will be reading 
-and writing my files usung the fs module.
+The first thing i did was to create 2 functions that will be reading and writing my files usung the fs module.
 
 TERMS
-parse - converst the data into a JSON object 
+parse - converts the data into a JSON object 
 stringify - Converst the JSON object into a string for the browser to read it 
 parseInt - covert my string into a Integer
 split - This splits the URL into different sections to that your code can read it 
@@ -12,8 +11,9 @@ splice - This is used to change contents in an Array by either removing it
 There are 4 methods GET, POST, PUT, DELETE
 
 GET  
-- The get method will be retreiving data from my JSON file and converting it to be readable
-- It can also search for a specific product using the ID
+- The GET method will be retreiving data from my JSON file and converting it to be readable
+- It can also search for a specific product using the ID 
+    - in order to use this you have to specifiy inside your URL like : localhost:3000/products/1(this would be the ID you would want to find) 
 - If it does not find a product , you will get a error code
 
 POST
