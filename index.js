@@ -21,24 +21,23 @@ const server = http.createServer((req, res) =>{
     const urlParsed = url.parse(req.url, true);
     const method = req.method;
 
-// to GET information 
-        if (urlParsed.pathname.startsWith('/products/') && method === 'GET') {
-            const itemId = parseInt(urlParsed.pathname.split('/')[2]);
+// to GET information
+        if (urlParsed.pathname.startsWith("/products" ) && method === 'GET') {
+            // const itemId = parseInt(urlParsed.pathname.split('/')[2]);
             const data = readItems();
             // find the item by the specific ID
-            const item = data.find(item => parseInt(item.id) === itemId);
+            // const item = data.find(item => parseInt(item.id) === itemId);
     
-        //If data is found display it and post a 200 code for it is working
-            if (data) {
-                res.writeHead(200, { 'Content-Type': 'application/json' });
-                res.end(JSON.stringify(item));
-        //If it does not find the item show a 404 error
-            } else {
-                res.writeHead(404, { 'Content-Type': 'text/plain' });
-                res.end('Product not found');
-            }
+        // //If data is found display it and post a 200 code for it is working
+        //     if (data) {
+            res.writeHead(200, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify(data));
+        // //If it does not find the item show a 404 error
+        //     } else {
+        //         res.writeHead(404, { 'Content-Type': 'text/plain' });
+        //         res.end('Product not found');
+        //     }
         
-
     } else if (urlParsed.pathname === "/products" && method === "POST"){
         // POST : Adding new Items to the list 
         let body = "";
@@ -55,8 +54,7 @@ const server = http.createServer((req, res) =>{
             writeItems(data);
             res.writeHead(200, {'Content-Type': 'application/json' });
             res.end(JSON.stringify(data));
-            console.log("New Item Has been Added!");
-            
+            console.log(`Item ${itemNew.id} has been Added`)            
        });
      } else if  (urlParsed.pathname.startsWith('/products/') && method === 'PUT') {
         //PUT - update certain things in your array using the ID 
@@ -82,6 +80,7 @@ const server = http.createServer((req, res) =>{
             writeItems(data);
             res.writeHead(200, { 'Content-Type': 'application/json' });
             res.end(JSON.stringify(data[index]));
+            console.log(`Item ID: ${itemId} has been Updated`)
         });
         // This part will be to delete a certain product from the list using the id
      }else if (urlParsed.pathname.startsWith("/products/") && method === "DELETE"){
@@ -99,8 +98,7 @@ const server = http.createServer((req, res) =>{
         writeItems(data);
         res.writeHead(204);
         res.end("Item has been deleted");
-        console.log("Item has been Deleted!");
-
+        console.log(`Item ID: ${itemId} has been Deleted`)
         
     }else {
         // Error 404 if nothing is found
