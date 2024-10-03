@@ -27,7 +27,7 @@ const server = http.createServer((req, res) =>{
             res.writeHead(200, { 'Content-Type': 'application/json' });
             res.end(JSON.stringify(data));
         
-
+    
 
     } else if (urlParsed.pathname === "/products" && method === "POST"){
         // POST : Adding new Items to the list 
