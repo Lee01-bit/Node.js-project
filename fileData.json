@@ -1,7 +1,7 @@
 [
   {
-    "productName": "Banana",
-    "price": "20.00",
+    "productName": "Melon",
+    "price": "25",
     "id": 1
   },
   {
@@ -18,5 +18,10 @@
     "productName": "Watermelon",
     "price": "100.00",
     "id": 4
+  },
+  {
+    "productName": "Watermelon",
+    "price": "35.00",
+    "id": 5
   }
 ]

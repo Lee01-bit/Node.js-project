@@ -22,22 +22,13 @@ const server = http.createServer((req, res) =>{
     const method = req.method;
 
 // to GET information
-        if (urlParsed.pathname.startsWith("/products" ) && method === 'GET') {
-            // const itemId = parseInt(urlParsed.pathname.split('/')[2]);
-            const data = readItems();
-            // find the item by the specific ID
-            // const item = data.find(item => parseInt(item.id) === itemId);
-    
-        // //If data is found display it and post a 200 code for it is working
-        //     if (data) {
+    if (urlParsed.pathname.startsWith("/products" ) && method === 'GET' ) {
+            const data = readItems()
             res.writeHead(200, { 'Content-Type': 'application/json' });
             res.end(JSON.stringify(data));
-        // //If it does not find the item show a 404 error
-        //     } else {
-        //         res.writeHead(404, { 'Content-Type': 'text/plain' });
-        //         res.end('Product not found');
-        //     }
         
+
+
     } else if (urlParsed.pathname === "/products" && method === "POST"){
         // POST : Adding new Items to the list 
         let body = "";
@@ -109,6 +100,6 @@ const server = http.createServer((req, res) =>{
 
 // This code will run my server
 server.listen(PORT, () =>{
-    console.log(`server is running on http://localhost:${PORT}`);
+    console.log(`server is running on http://localhost:${PORT}/products`);
     
 })
