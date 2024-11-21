@@ -1,55 +1,114 @@
-Node.js ReadMe
-The first thing i did was to create 2 functions that will be reading and writing my files usung the fs module.
+This is a simple Node.js application that implements a REST API for managing products. It uses a JSON file as the data store and provides endpoints for CRUD operations: Create, Read, Update, and Delete.
 
-TERMS
-parse - converts the data into a JSON object 
-stringify - Converst the JSON object into a string for the browser to read it 
-parseInt - covert my string into a Integer
-split - This splits the URL into different sections to that your code can read it 
-splice - This is used to change contents in an Array by either removing it 
+Features
+GET: Retrieve all products.
+POST: Add a new product.
+PUT: Update a product by its ID.
+DELETE: Remove a product by its ID.
+JSON file storage for simplicity.
+Prerequisites
+Node.js (version 14.x or later)
+Getting Started
+1. Clone the Repository
+bash
+Copy code
+git clone https://github.com/your-username/your-repo-name.git
+cd your-repo-name
+2. Install Dependencies
+This project does not require additional npm packages. It uses only core Node.js modules (fs and http).
 
-There are 4 methods GET, POST, PUT, DELETE
+3. Prepare the JSON File
+Create a fileData.json file in the project root directory. It should start with an empty array:
 
-GET  
-- The GET method will be retreiving data from my JSON file and converting it to be readable
-- It can also search for a specific product using the ID 
-    - in order to use this you have to specifiy inside your URL like : localhost:3000/products/1(this would be the ID you would want to find) 
-- If it does not find a product , you will get a error code
+json
+Copy code
+[]
+4. Run the Server
+Start the server with the following command:
 
-POST
-- This method will be used for Adding new items to the list 
-- The chunk function will be breaking up the data so that it is easy to handle and converts it back into a string
-- There is also a Function that will be adding a new ID to every item that gets added
+bash
+Copy code
+node server.js
+The server will run on http://localhost:3000/products.
 
-PUT
-- This method is used to update certain things in your array 
-- In order to use this method inside your URL to has to use another slash
-    and then you add your ID number you want to change 
-    - and then on POSTMAN you go to body and Raw and inside the data you wish to change
-
- data[index]: This accesses an object located at the specified index in the data array.
-
-updatedData: This is another object that contains properties you want to update or add to the object at data[index].
-
-{ ...data[index], ...updatedData }:
-
-- The { ...data[index] } part creates a new object that is a shallow copy of the object at data[index]. 
-    -This means it takes all the existing properties of that object.
-
-- The { ...updatedData } part spreads the properties of the updatedData object into the new object. 
-    - If any properties in updatedData have the same keys as those in the object from data[index], 
-        - they will overwrite the original properties.
-
-- The {data[index] = ...:}
-    - this line assigns the newly created object (which contains the updated properties) 
-    - back to data[index]. This effectively updates the object in the array with the new values.
-
-DELETE
-- This Method will be deleting the product using the ID 
-- so you use it similiar to how you find a ID using the URL , you would specify 
-    the specific ID you want deleted.
-
-Then finally the code will end with a ELSE statement if no content has been found , it will show a error.
-
-
-
+API Endpoints
+1. GET /products
+Retrieves all products.
+Response: JSON array of products.
+Example Request:
+bash
+Copy code
+curl http://localhost:3000/products
+Example Response:
+json
+Copy code
+[
+  {
+    "id": 1,
+    "name": "Product 1",
+    "price": 10.99
+  },
+  {
+    "id": 2,
+    "name": "Product 2",
+    "price": 24.99
+  }
+]
+2. POST /products
+Adds a new product.
+Request Body: JSON object with the product details.
+Response: JSON array of all products, including the new product.
+Example Request:
+bash
+Copy code
+curl -X POST http://localhost:3000/products -H "Content-Type: application/json" -d '{"name": "New Product", "price": 15.99}'
+Example Response:
+json
+Copy code
+[
+  {
+    "id": 1,
+    "name": "Product 1",
+    "price": 10.99
+  },
+  {
+    "id": 2,
+    "name": "New Product",
+    "price": 15.99
+  }
+]
+3. PUT /products/:id
+Updates an existing product by ID.
+Request Body: JSON object with the updated fields.
+Response: JSON object of the updated product.
+Example Request:
+bash
+Copy code
+curl -X PUT http://localhost:3000/products/1 -H "Content-Type: application/json" -d '{"price": 12.99}'
+Example Response:
+json
+Copy code
+{
+  "id": 1,
+  "name": "Product 1",
+  "price": 12.99
+}
+4. DELETE /products/:id
+Deletes a product by ID.
+Response: 204 No Content if successful.
+Example Request:
+bash
+Copy code
+curl -X DELETE http://localhost:3000/products/1
+Project Structure
+bash
+Copy code
+.
+├── fileData.json         # JSON file for data storage
+├── server.js             # Main application logic
+└── README.md             # Project documentation
+Additional Notes
+This is a basic implementation suitable for learning purposes. For production-grade applications, consider using a proper database like MongoDB, PostgreSQL, etc.
+Error handling for invalid input or edge cases can be expanded.
+License
+This project is open-source and available under the MIT License.
